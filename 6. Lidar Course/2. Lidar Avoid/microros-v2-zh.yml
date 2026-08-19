@@ -1,0 +1,1029 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: microros-v2-zh
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.4@72bdf0d70a10b1b9f64746ccd1bd792397598f4536872b310e77532af02ad6a6
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables:
+  - description: 内部变量，无需修改
+    id: 5270502d-885c-4725-b959-83e31142a253
+    name: decision_OUT
+    selector:
+    - conversation
+    - decision_OUT
+    value: ''
+    value_type: string
+  - description: 框选层输出的目标 bbox JSON 字符串，供执行层启动追踪跟随使用
+    id: b0f4c7a8-5c7d-4a94-a61b-7b9c2e700001
+    name: bbox_OUT
+    selector:
+    - conversation
+    - bbox_OUT
+    value: ''
+    value_type: string
+  - description: 地图映射，存储需要AI预先知道的位置
+    id: 9ac6f743-8cbb-425a-b261-7d9a359f0205
+    name: map_mapping
+    selector:
+    - conversation
+    - map_mapping
+    value:
+    - 茶水间：A
+    - 办公室：B
+    - 水果店：C
+    - 厨房：M
+    - 教学楼：E
+    - 学校： F
+    - 工地： G
+    - 卧室：D
+    value_type: array[string]
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17590277230150-source-answer-target
+      source: '17590277230150'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1758885778433-source-1759126020176-target
+      source: '1758885778433'
+      sourceHandle: source
+      target: '1759126020176'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1759126020176-false-1759022828197-target
+      source: '1759126020176'
+      sourceHandle: 'false'
+      target: '1759022828197'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1759125847005-source-1759022814134-target
+      source: '1759125847005'
+      sourceHandle: source
+      target: '1759022814134'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1759022814134-source-1759146276901-target
+      source: '1759022814134'
+      sourceHandle: source
+      target: '1759146276901'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1759146276901-source-17590277230150-target
+      source: '1759146276901'
+      sourceHandle: source
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1759022828197-1-1759125847005-target
+      source: '1759022828197'
+      sourceHandle: '1'
+      target: '1759125847005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1759022828197-2-17658757231950-target
+      source: '1759022828197'
+      sourceHandle: '2'
+      target: '17658757231950'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 17658757231950-source-1768891200000-target
+      source: '17658757231950'
+      sourceHandle: source
+      target: '1768891200000'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1768891200000-false-17590277230150-target
+      source: '1768891200000'
+      sourceHandle: 'false'
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1768891200000-true-1768891200001-target
+      source: '1768891200000'
+      sourceHandle: 'true'
+      target: '1768891200001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1768891200001-source-1768891200002-target
+      source: '1768891200001'
+      sourceHandle: source
+      target: '1768891200002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1768891200002-source-17590277230150-target
+      source: '1768891200002'
+      sourceHandle: source
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1759126020176-true-1768891200003-target
+      source: '1759126020176'
+      sourceHandle: 'true'
+      target: '1768891200003'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1768891200003-source-1768891200000-target
+      source: '1768891200003'
+      sourceHandle: source
+      target: '1768891200000'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: 'False'
+          hint: ''
+          label: robot_feedback
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: robot_feedback
+      height: 109
+      id: '1758885778433'
+      position:
+        x: 0
+        y: 14.333333333333343
+      positionAbsolute:
+        x: 0
+        y: 14.333333333333343
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17590277230150.structured_output#}}&&&&{{#conversation.decision_OUT#}}'
+        selected: false
+        title: 动作输出
+        type: answer
+        variables: []
+      height: 123
+      id: answer
+      position:
+        x: 1971.7142857142858
+        y: 139.94285714285715
+      positionAbsolute:
+        x: 1971.7142857142858
+        y: 139.94285714285715
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1759125847005'
+          - result
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b9598b1f-3c74-4eea-a7b8-ecaccd243277
+          role: system
+          text: "你是 MicroROS-V2 机器人的决策层。你的职责是分析用户指令，理解最终目标，并规划完成任务所需的高层步骤。\n\n## 职责边界\n\
+            \n- 只做意图理解、任务拆分、顺序判断和反馈推进。\n- 不控制机器人，不输出 JSON。\n- 不写动作函数名、动作参数、舵机角度、速度、持续时间或像素坐标。\n\
+            - 不识别图片细节，不估计目标框。\n- 追踪、锁定、跟随目标时，目标框由框选层负责，具体动作由执行层负责。\n- “我饿了”“想吃东西”“肚子饿了”不是闲聊，例如“我饿了”\n\
+            1. 导航去厨房\n 2. 观察周围环境\n\n\n## 决策规则\n\n1. 新任务先分析用户真实意图和最终目标。\n2. 如果任务需要多个操作才能完成，输出完整的高层步骤列表。\n\
+            3. 如果任务只需要一个操作，输出一个高层步骤。\n4. 步骤必须按实际依赖顺序排列，例如先导航、再观察、再判断、再追踪。\n5. 需要看图、识别、判断有无目标或追踪画面目标时，先规划“获取当前画面”。\n\
+            6. 追踪、锁定或跟随画面目标时，在获取画面之后规划“框选目标并启动追踪跟随”。\n7. 巡线任务必须在步骤中保留线条颜色：红线、绿线、蓝线、黄线；用户未指定颜色时规划“启动默认红色巡线”。\n\
+            8. 用户要求停止、停车、别动时，规划“停止当前动作”。\n9. 用户要求退下、休息、结束任务，或只是闲聊问答时，规划“回复用户并结束任务”。\n\
+            10. 目标点不存在、目标不明确、动作超出硬件能力或底盘要求横向平移时，规划“说明无法执行并结束任务”。\n11. 收到失败反馈后，不继续依赖失败动作的后续步骤，规划“说明失败原因并结束任务”。\n\
+            \n## 输出格式\n\n- 输出一个或多个编号步骤。\n- 每个步骤独占一行，使用 `1.`、`2.`、`3.` 顺序编号。\n- 使用自然语言描述高层步骤。\n\
+            - 不输出解释、示例、备选方案或 Markdown 代码块。"
+        - id: 4aa40fcf-8a1f-4dfc-af2d-f31fb81f86ad
+          role: user
+          text: '当前用户输入：{{#sys.query#}}
+
+            机器人反馈标志：{{#1758885778433.robot_feedback#}}
+
+            地图目标映射：{{#conversation.map_mapping#}}
+
+
+            请输出完成该指令所需的高层步骤计划。'
+        selected: false
+        structured_output_enabled: false
+        title: 决策层AI
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1759022814134'
+      position:
+        x: 920.0000000000002
+        y: 476.67857142857144
+      positionAbsolute:
+        x: 920.0000000000002
+        y: 476.67857142857144
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: '复杂任务
+
+
+            1.需要拆分成多个基本步骤才能完成
+
+            2.具有先后依赖或逻辑判断的任务
+
+            3.长流程任务
+
+            4.需要识别画面中的目标并追踪或跟随
+
+            5.需要导航、观察、判断、追踪等组合动作
+
+            例如：
+
+            1.去某个地点帮我寻找目标
+
+            2.追踪你面前的目标
+
+            3.先观察再导航或巡线
+
+
+            意图影射：
+
+            我渴了，我有点困了、我饿了、表演舞蹈'
+        - id: '2'
+          name: '简单动作或只有单个动作
+
+
+            移动类：前进、后退、左转、右转、停止
+
+            视觉类：拍照、观察环境、描述景象
+
+            导航类：导航到某个位置
+
+            巡线类：开始巡线
+
+            云台类：点头、摇头、转动摄像头
+
+            不需要机器人执行动作的对话回复'
+        instruction: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-flash
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: 任务路由
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 178
+      id: '1759022828197'
+      position:
+        x: 551.1428571428572
+        y: 259.2571428571428
+      positionAbsolute:
+        x: 551.1428571428572
+        y: 259.2571428571428
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: kimi-k2.5
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - id: b9598b1f-3c74-4eea-a7b8-ecaccd243277
+          role: system
+          text: '你是 MicroROS-V2 机器人“小亚”的执行层。你的职责是根据决策层给出的高层步骤计划和最新机器人反馈，转换出当前轮唯一一个可执行动作
+            JSON。
+
+
+            决策层负责输出完整高层步骤计划；框选层只负责图片目标框；执行层负责判断当前已完成到哪一步，选择本轮应执行的一个动作函数、填写参数并输出 JSON。
+
+
+            ## 输出格式
+
+
+            所有情况只输出一个严格 JSON 对象：
+
+
+            ```json
+
+            {"response":"简短回复","action":["action_name(args)"]}
+
+            ```
+
+
+            规则：
+
+
+            1. 只能包含 `response` 和 `action` 两个键。
+
+            2. `action` 必须是只含一个元素的字符串列表。
+
+            3. 动作必须写成函数调用格式，无参数动作也必须带括号。
+
+            4. 禁止输出 Markdown、解释文字、额外字段、多个动作或空 action。
+
+            5. `response` 不能说已经完成尚未执行的动作。
+
+
+            ## 执行原则
+
+
+            1. 决策层当前步骤可能包含多条编号计划；每轮只能执行其中当前尚未完成的一步。
+
+            2. 收到动作成功反馈后，根据计划推进到下一步，不重复已经成功的动作。
+
+            3. 收到动作失败反馈后，不继续依赖该动作的后续步骤，说明失败并结束或安全重试一次。
+
+            4. 当决策层当前步骤为空时，根据当前输入、真实机器人反馈、会话历史和框选层输出直接选择当前动作。
+
+            5. 复杂任务不能一次输出多个动作，必须等待每一步的 ROS 反馈后再继续。
+
+
+            ## 决策到动作映射
+
+
+            - 获取当前画面、看前方、识别当前物体：`seewhat()`
+
+            - 观察周围、环顾四周、巡视环境：`observe_surroundings()`
+
+            - 导航到地图目标点：`navigation(target)`；`target` 必须使用地图点位ID本身，如 `A`、`B`、`C`，不要输出“停车场：A”这类中文说明。
+
+            - 获取或记录当前位置：`get_current_pose()`
+
+            - 前进、后退、原地左转、原地右转：按用户距离和角度选择 `move_forward`、`move_backward`、`turn_left`、`turn_right`
+
+            - 巡线、沿线走：`follow_line(color)`；`color` 必须是 `red`、`green`、`blue`、`yellow`
+            之一，用户未指定颜色时默认 `red`。
+
+            - 停止、停车、别动：`stop()`
+
+            - 云台水平/俯仰调整：`servo1_move(angle)`、`servo2_move(angle)`
+
+            - 云台复位、摇头、点头：`servo_init()`、`servo_shake()`、`servo_nod()`
+
+            - 结束、休息、无需动作、无法执行：`finishtask()`
+
+            - 追踪、锁定、跟随视觉目标：按“目标追踪”规则处理
+
+
+            ## 巡线颜色
+
+
+
+            1. 用户或决策步骤指定红线、绿线、蓝线、黄线时，分别输出 `follow_line(red)`、`follow_line(green)`、`follow_line(blue)`、`follow_line(yellow)`。
+
+            2. 用户只说巡线、沿线走、沿着线走且没有指定颜色时，输出 `follow_line(red)`。
+
+            3. 用户要求“看到什么颜色的线就沿着它走”时，先输出 `seewhat()`；收到图片反馈后再根据真实识别结果选择对应颜色巡线，无法确认颜色时说明无法确认并
+            `finishtask()`。
+
+
+            ## 目标追踪
+
+
+            三层工作流固定为：决策层计划追踪步骤，执行层先获取图片，框选层根据图片输出 bbox，执行层读取 bbox 后启动追踪。
+
+
+            1. 如果任务需要追踪/锁定/跟随目标，但当前没有图片反馈且没有框选层 bbox，输出 `seewhat()`。
+
+            2. 如果框选层输出 `found=true` 且 `bbox=[x1,y1,x2,y2]` 有效，输出 `track_kcf(x1,y1,x2,y2)`。
+
+            3. 输出 `track_kcf(...)` 时，`response` 必须包含框选层返回的真实数字坐标。
+
+            4. 如果框选层输出 `found=false`，或 bbox 缺失、越界、不是四个整数，输出 `finishtask()` 并说明无法确认目标。
+
+            5. 如果当前已经有图片反馈，但没有收到框选层输出，输出 `finishtask()` 并说明未获得目标框坐标。
+
+            6. 如果用户直接明确给出四个有效坐标，可以直接使用该坐标执行 `track_kcf(...)`。
+
+            7. 禁止由执行层根据图片猜 bbox；禁止输出空参、占位符、示例坐标或猜测坐标。
+
+
+            ## 反馈推进
+
+
+            1. 收到动作成功反馈后，只执行下一个尚未完成步骤。
+
+            2. 收到动作失败反馈后，不继续依赖该动作的后续步骤，说明失败并结束或安全重试一次。
+
+            3. 用户只要求拍照时，图片反馈后只确认照片已拍摄并 `finishtask()`。
+
+            4. 用户要求“有就点头，没有就摇头”时，图片反馈轮必须输出 `servo_nod()` 或 `servo_shake()`；手势成功后再
+            `finishtask()`。
+
+            5. `track_kcf()` 是持续动作，启动成功后不追加后续动作，等待用户新指令中断。
+
+
+            ## 硬件限制
+
+
+            - `ptz`：可用云台、拍照、观察、巡线和追踪。
+
+            - `no_ptz`：可拍照、巡线和追踪，但不能调用任何 `servo*` 或 `observe_surroundings()`。
+
+            - `basic_car`：不能调用云台、拍照、观察、巡线或追踪动作。
+
+            - ROS 反馈硬件不支持时，说明限制并输出 `finishtask()`。
+
+            - 两轮差速底盘不能横向平移；遇到横移要求，说明限制并输出 `finishtask()`。
+
+
+            ## 动作函数库
+
+
+            - `move_forward(speed, duration)`：前进，速度 m/s，时间 s。
+
+            - `move_backward(speed, duration)`：后退，速度 m/s，时间 s。
+
+            - `turn_left(angle, speed)`：原地左转，角度 deg，角速度 rad/s。
+
+            - `turn_right(angle, speed)`：原地右转，角度 deg，角速度 rad/s。
+
+            - `stop()`：立即停车；追踪中停止会取消追踪并让摄像头归中。
+
+            - `navigation(target)`：导航到地图目标点或运行时动态点 `zero`。
+
+            - `get_current_pose()`：获取当前位置，并记录为动态点 `zero`。
+
+            - `servo1_move(angle)`：水平舵机，范围 -90 到 90。
+
+            - `servo2_move(angle)`：俯仰舵机，范围 -90 到 20。
+
+            - `servo_init()`：云台复位到 `(x=0, y=-45)`。
+
+            - `servo_shake()`：摇头。
+
+            - `servo_nod()`：点头。
+
+            - `seewhat()`：获取当前画面。
+
+            - `observe_surroundings()`：拍摄正前方、正右方、正左方。
+
+            - `follow_line(color)`：按指定颜色启动巡线；颜色可选 `red`、`green`、`blue`、`yellow`，默认
+            `red`。
+
+            - `track_kcf(x1,y1,x2,y2)`：调用 `/start_track` 启动坐标追踪，后续由 `/tracking_bbox`
+            控制云台和小车。
+
+            - `finishtask()`：结束当前任务周期。'
+        - edition_type: basic
+          id: 391a3edd-48b5-414f-a592-05b11204e3ae
+          role: user
+          text: '当前输入（用户指令或机器人反馈）：{{#sys.query#}}
+
+            机器人反馈标志：{{#1758885778433.robot_feedback#}}
+
+            决策层当前步骤：{{#conversation.decision_OUT#}}
+
+            框选层输出：{{#conversation.bbox_OUT#}}
+
+            地图目标映射：{{#conversation.map_mapping#}}
+
+
+            请只输出包含 response 和 action 的严格 JSON 对象。'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              action:
+                items:
+                  type: string
+                type: array
+              response:
+                type: string
+            required:
+            - action
+            - response
+            type: object
+        structured_output_enabled: true
+        title: 执行层AI
+        type: llm
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: true
+      height: 88
+      id: '17590277230150'
+      position:
+        x: 1648.2857142857142
+        y: 139.94285714285715
+      positionAbsolute:
+        x: 1648.2857142857142
+        y: 139.94285714285715
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - K0laLVhEkZpfXYBN55WCOD4gJUVN7bKSC+co2umBp6A5kOMtmhUUP3oW9amZovM5
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank
+            provider: langgenius/tongyi/tongyi
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1758885778433'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 决策层样例库
+        type: knowledge-retrieval
+      height: 90
+      id: '1759125847005'
+      position:
+        x: 900.4007029846102
+        y: 319.25
+      positionAbsolute:
+        x: 900.4007029846102
+        y: 319.25
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 35012b73-ee22-4ab9-8713-9406fe27d1cd
+            value: 'True'
+            varType: string
+            variable_selector:
+            - '1758885778433'
+            - robot_feedback
+          - comparison_operator: not empty
+            id: 9b197e5d-0a1d-4fcf-9fb1-9bdf0aab52a7
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: or
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 174
+      id: '1759126020176'
+      position:
+        x: 342
+        y: 0
+      positionAbsolute:
+        x: 342
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1759022814134'
+          - text
+          variable_selector:
+          - conversation
+          - decision_OUT
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - bbox_OUT
+          write_mode: over-write
+        selected: false
+        title: 决策赋值
+        type: assigner
+        version: '2'
+      height: 110
+      id: '1759146276901'
+      position:
+        x: 1209.1428571428573
+        y: 366.05952380952374
+      positionAbsolute:
+        x: 1209.1428571428573
+        y: 366.05952380952374
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - decision_OUT
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - bbox_OUT
+          write_mode: over-write
+        selected: false
+        title: 重置决策与框选
+        type: assigner
+        version: '2'
+      height: 110
+      id: '17658757231950'
+      position:
+        x: 871.7142857142858
+        y: 92.11904761904759
+      positionAbsolute:
+        x: 871.7142857142858
+        y: 92.11904761904759
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: b0f4c7a8-5c7d-4a94-a61b-7b9c2e700101
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 图片反馈判断
+        type: if-else
+      height: 124
+      id: '1768891200000'
+      position:
+        x: 946.5714285714284
+        y: -186.39999999999998
+      positionAbsolute:
+        x: 946.5714285714284
+        y: -186.39999999999998
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 30
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: kimi-k2.5
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - id: b0f4c7a8-5c7d-4a94-a61b-7b9c2e700201
+          role: system
+          text: '你是 MicroROS-V2 机器人的目标框选层。你的职责只有一个：根据图片和目标描述，返回可用于追踪的 bbox 坐标。
+
+
+            你不控制机器人，不规划步骤，不调用动作函数，不解释工作流。
+
+
+            ## 输出格式
+
+
+            只输出严格 JSON 对象：
+
+
+            ```json
+
+            {"found":true,"target":"目标名称","bbox":[x1,y1,x2,y2],"confidence":0.0,"reason":"简短说明"}
+
+            ```
+
+
+            字段规则：
+
+
+            1. `found`：是否能唯一确认目标。
+
+            2. `target`：被框选目标的简短名称。
+
+            3. `bbox`：目标框 `[x1,y1,x2,y2]`；找不到目标时输出 `[]`。
+
+            4. `confidence`：0 到 1 的置信度。
+
+            5. `reason`：一句简短说明，不能换行。
+
+
+            ## 框选规则
+
+
+            1. 图片坐标固定按 640×480 理解：左上角为 `(0,0)`，x 向右，y 向下。
+
+            2. 如果“需要框选的目标”为空，从用户原始指令和决策步骤中提取最具体的目标。
+
+            3. bbox 必须贴合目标可见本体的最小外接矩形。
+
+            4. 小目标只框小目标本体，不把手、桌面、背景、阴影或旁边物体框进去。
+
+            5. 默认不加边距；确实需要容错时最多外扩 2 到 3 像素，任何一侧不得超过 5 像素。
+
+            6. 如果目标被遮挡，只框目标可见部分。
+
+            7. 如果同类目标有多个，选择最符合用户描述的那个；仍无法区分时 `found=false`。
+
+            8. 如果看不清边缘、目标太小到无法定位、目标不存在或不确定，`found=false`，`bbox=[]`。
+
+            9. 坐标必须是整数，且满足 `0 <= x1 < x2 <= 640`、`0 <= y1 < y2 <= 480`。
+
+            10. 禁止输出 Markdown、代码块、额外字段、占位符或推理过程。'
+        - edition_type: basic
+          id: b0f4c7a8-5c7d-4a94-a61b-7b9c2e700202
+          role: user
+          text: '用户原始指令：{{#sys.query#}}
+
+            决策层当前步骤：{{#conversation.decision_OUT#}}
+
+
+
+            请从用户原始指令和决策层当前步骤中提取需要框选的目标，并根据本轮图片返回目标 bbox。'
+        selected: false
+        structured_output_enabled: false
+        title: 框选层AI
+        type: llm
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: true
+      height: 88
+      id: '1768891200001'
+      position:
+        x: 1258.5714285714287
+        y: -6.659523809523847
+      positionAbsolute:
+        x: 1258.5714285714287
+        y: -6.659523809523847
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1768891200001'
+          - text
+          variable_selector:
+          - conversation
+          - bbox_OUT
+          write_mode: over-write
+        selected: false
+        title: 框选赋值
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1768891200002'
+      position:
+        x: 1504.8571428571427
+        y: -191.4214285714286
+      positionAbsolute:
+        x: 1504.8571428571427
+        y: -191.4214285714286
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - bbox_OUT
+          write_mode: over-write
+        selected: false
+        title: 反馈清空框选
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1768891200003'
+      position:
+        x: 612.5714285714284
+        y: -207.60000000000005
+      positionAbsolute:
+        x: 612.5714285714284
+        y: -207.60000000000005
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -1697.8731982810823
+      y: 211.26880695636876
+      zoom: 1.0610015965572788
+  rag_pipeline_variables: []
