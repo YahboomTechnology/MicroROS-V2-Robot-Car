@@ -1,0 +1,1 @@
+This virtual machine image is dedicated to the ROS2 basic course and has no other functions.
