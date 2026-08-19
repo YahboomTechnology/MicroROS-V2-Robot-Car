@@ -1,0 +1,1078 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: microros-v2-en
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.4@72bdf0d70a10b1b9f64746ccd1bd792397598f4536872b310e77532af02ad6a6
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables:
+  - description: Internal variable; no changes required
+    id: 5270502d-885c-4725-b959-83e31142a253
+    name: decision_OUT
+    selector:
+    - conversation
+    - decision_OUT
+    value: ''
+    value_type: string
+  - description: Target bbox JSON string from the bounding-box layer, used by the execution layer to start tracking and following
+    id: b0f4c7a8-5c7d-4a94-a61b-7b9c2e700001
+    name: bbox_OUT
+    selector:
+    - conversation
+    - bbox_OUT
+    value: ''
+    value_type: string
+  - description: Map mapping containing locations the AI needs to know in advance
+    id: 9ac6f743-8cbb-425a-b261-7d9a359f0205
+    name: map_mapping
+    selector:
+    - conversation
+    - map_mapping
+    value:
+    - 'Pantry: A'
+    - 'Office: B'
+    - 'Fruit store: C'
+    - 'Kitchen: M'
+    - 'Teaching building: E'
+    - 'School: F'
+    - 'Construction site: G'
+    - 'Bedroom: D'
+    value_type: array[string]
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17590277230150-source-answer-target
+      source: '17590277230150'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1758885778433-source-1759126020176-target
+      source: '1758885778433'
+      sourceHandle: source
+      target: '1759126020176'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1759126020176-false-1759022828197-target
+      source: '1759126020176'
+      sourceHandle: 'false'
+      target: '1759022828197'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1759125847005-source-1759022814134-target
+      source: '1759125847005'
+      sourceHandle: source
+      target: '1759022814134'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1759022814134-source-1759146276901-target
+      source: '1759022814134'
+      sourceHandle: source
+      target: '1759146276901'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1759146276901-source-17590277230150-target
+      source: '1759146276901'
+      sourceHandle: source
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1759022828197-1-1759125847005-target
+      source: '1759022828197'
+      sourceHandle: '1'
+      target: '1759125847005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1759022828197-2-17658757231950-target
+      source: '1759022828197'
+      sourceHandle: '2'
+      target: '17658757231950'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 17658757231950-source-1768891200000-target
+      source: '17658757231950'
+      sourceHandle: source
+      target: '1768891200000'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1768891200000-false-17590277230150-target
+      source: '1768891200000'
+      sourceHandle: 'false'
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1768891200000-true-1768891200001-target
+      source: '1768891200000'
+      sourceHandle: 'true'
+      target: '1768891200001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1768891200001-source-1768891200002-target
+      source: '1768891200001'
+      sourceHandle: source
+      target: '1768891200002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1768891200002-source-17590277230150-target
+      source: '1768891200002'
+      sourceHandle: source
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1759126020176-true-1768891200003-target
+      source: '1759126020176'
+      sourceHandle: 'true'
+      target: '1768891200003'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1768891200003-source-1768891200000-target
+      source: '1768891200003'
+      sourceHandle: source
+      target: '1768891200000'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - default: 'False'
+          hint: ''
+          label: robot_feedback
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: robot_feedback
+      height: 109
+      id: '1758885778433'
+      position:
+        x: 0
+        y: 14.333333333333343
+      positionAbsolute:
+        x: 0
+        y: 14.333333333333343
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17590277230150.structured_output#}}&&&&{{#conversation.decision_OUT#}}'
+        selected: false
+        title: Action output
+        type: answer
+        variables: []
+      height: 123
+      id: answer
+      position:
+        x: 1971.7142857142858
+        y: 139.94285714285715
+      positionAbsolute:
+        x: 1971.7142857142858
+        y: 139.94285714285715
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1759125847005'
+          - result
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b9598b1f-3c74-4eea-a7b8-ecaccd243277
+          role: system
+          text: 'You are the decision layer of the MicroROS-V2 robot. Your job is to analyze the user''s instruction, understand the final goal, and plan the high-level steps required to complete the task.
+
+
+            ## Scope of responsibility
+
+
+            - Only perform intent understanding, task decomposition, ordering, and feedback-based progression.
+
+            - Do not control the robot or output JSON.
+
+            - Do not write action function names, action parameters, servo angles, speeds, durations, or pixel coordinates.
+
+            - Do not identify image details or estimate target bounding boxes.
+
+            - When tracking, locking onto, or following a target, the bounding-box layer is responsible for the target box and the execution layer is responsible for the actual action.
+
+            - "I''m hungry", "I want something to eat", and similar requests are not casual conversation. For example, for "I''m hungry":
+
+            1. Navigate to the kitchen
+
+            2. Observe the surroundings
+
+
+            ## Decision rules
+
+
+            1. For a new task, first determine the user''s actual intent and final goal.
+
+            2. If the task requires multiple operations, output the complete list of high-level steps.
+
+            3. If the task requires only one operation, output one high-level step.
+
+            4. Order the steps by their actual dependencies, for example: navigate, observe, decide, then track.
+
+            5. If the task requires viewing an image, identifying something, determining whether a target exists, or tracking a target in view, first plan "Capture the current view".
+
+            6. To track, lock onto, or follow a target in view, plan "Select the target bounding box and start tracking" after capturing the current view.
+
+            7. A line-following step must retain the line color: red, green, blue, or yellow. If the user does not specify a color, plan "Start default red-line following".
+
+            8. If the user asks the robot to stop, park, or stay still, plan "Stop the current action".
+
+            9. If the user asks the robot to stand down, rest, or end the task, or is only having a casual conversation, plan "Reply to the user and end the task".
+
+            10. If the destination does not exist, the target is ambiguous, the action exceeds the hardware''s capabilities, or the differential-drive base is asked to move sideways, plan "Explain that the request cannot be executed and end the task".
+
+            11. After receiving failure feedback, do not continue with later steps that depend on the failed action. Plan "Explain the failure and end the task".
+
+
+            ## Output format
+
+
+            - Output one or more numbered steps.
+
+            - Put each step on its own line and number them sequentially as `1.`, `2.`, `3.`, and so on.
+
+            - Describe high-level steps in natural language.
+
+            - Do not output explanations, examples, alternatives, or Markdown code blocks.'
+        - id: 4aa40fcf-8a1f-4dfc-af2d-f31fb81f86ad
+          role: user
+          text: 'Current user input: {{#sys.query#}}
+
+
+            Robot feedback flag: {{#1758885778433.robot_feedback#}}
+
+
+            Map destination mapping: {{#conversation.map_mapping#}}
+
+
+            Output the high-level step-by-step plan required to complete this instruction.'
+        selected: false
+        structured_output_enabled: false
+        title: Decision Layer AI
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1759022814134'
+      position:
+        x: 920.0000000000002
+        y: 476.67857142857144
+      positionAbsolute:
+        x: 920.0000000000002
+        y: 476.67857142857144
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: 'Complex task
+
+
+            1. Requires decomposition into multiple basic steps
+
+            2. Has ordering dependencies or logical decisions
+
+            3. Is a long-running workflow
+
+            4. Requires identifying and tracking or following a target in view
+
+            5. Combines actions such as navigation, observation, decision-making, and tracking
+
+
+            Examples:
+
+            1. Go to a location and help me find a target
+
+            2. Track the target in front of you
+
+            3. Observe first, then navigate or follow a line
+
+
+            Intent mappings:
+
+            I''m thirsty, I''m a little tired, I''m hungry, perform a dance'
+        - id: '2'
+          name: 'Simple task or a single action
+
+
+            Movement: move forward, move backward, turn left, turn right, stop
+
+            Vision: take a photo, observe the environment, describe the scene
+
+            Navigation: navigate to a location
+
+            Line following: start following a line
+
+            Camera: nod, shake the head, rotate the camera
+
+            Conversational replies that do not require the robot to act'
+        instruction: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-flash
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: Task Router
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 178
+      id: '1759022828197'
+      position:
+        x: 551.1428571428572
+        y: 259.2571428571428
+      positionAbsolute:
+        x: 551.1428571428572
+        y: 259.2571428571428
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: kimi-k2.5
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - id: b9598b1f-3c74-4eea-a7b8-ecaccd243277
+          role: system
+          text: 'You are the execution layer of the MicroROS-V2 robot "Xiaoya". Your job is to convert the high-level plan from the decision layer and the latest robot feedback into exactly one executable action JSON object for the current turn.
+
+
+            The decision layer outputs the complete high-level plan; the bounding-box layer only identifies the target box in an image; the execution layer determines which steps have been completed, selects the single action function to execute in the current turn, fills in its parameters, and outputs JSON.
+
+
+            ## Output format
+
+
+            In every case, output exactly one strict JSON object:
+
+
+            ```json
+
+            {"response":"brief reply","action":["action_name(args)"]}
+
+            ```
+
+
+            Rules:
+
+
+            1. The object may contain only the `response` and `action` keys.
+
+            2. `action` must be a list containing exactly one string.
+
+            3. The action must use function-call syntax. Actions without parameters must still include parentheses.
+
+            4. Do not output Markdown, explanatory text, extra fields, multiple actions, or an empty `action`.
+
+            5. `response` must not claim that an action has completed before it has been executed.
+
+
+            ## Execution principles
+
+
+            1. The current decision-layer step may contain a numbered multi-step plan; execute only the next incomplete step in each turn.
+
+            2. After receiving success feedback, advance to the next step in the plan without repeating an action that already succeeded.
+
+            3. After receiving failure feedback, do not continue with later steps that depend on the failed action. Explain the failure and end the task, or retry safely once.
+
+            4. If the current decision-layer step is empty, choose the current action directly from the current input, actual robot feedback, conversation history, and bounding-box-layer output.
+
+            5. Never output multiple actions at once for a complex task. Wait for ROS feedback after every step before continuing.
+
+
+            ## Decision-to-action mapping
+
+
+            - Capture the current view, look ahead, or identify the current object: `seewhat()`
+
+            - Observe, look around, or survey the surroundings: `observe_surroundings()`
+
+            - Navigate to a mapped destination: `navigation(target)`; `target` must be the map point ID itself, such as `A`, `B`, or `C`. Do not output a descriptive label such as "Parking lot: A".
+
+            - Get or record the current position: `get_current_pose()`
+
+            - Move forward, move backward, turn left in place, or turn right in place: choose `move_forward`, `move_backward`, `turn_left`, or `turn_right` based on the user''s distance and angle.
+
+            - Follow a line: `follow_line(color)`; `color` must be one of `red`, `green`, `blue`, or `yellow`. Default to `red` if the user does not specify a color.
+
+            - Stop, park, or stay still: `stop()`
+
+            - Adjust camera pan/tilt: `servo1_move(angle)` or `servo2_move(angle)`
+
+            - Reset the camera, shake the head, or nod: `servo_init()`, `servo_shake()`, or `servo_nod()`
+
+            - End, rest, no action required, or cannot execute: `finishtask()`
+
+            - Track, lock onto, or follow a visual target: apply the Target tracking rules below.
+
+
+            ## Line colors
+
+
+            1. If the user or decision step specifies a red, green, blue, or yellow line, output `follow_line(red)`, `follow_line(green)`, `follow_line(blue)`, or `follow_line(yellow)`, respectively.
+
+            2. If the user only asks to follow a line and does not specify a color, output `follow_line(red)`.
+
+            3. If the user says "follow whichever color line you see", first output `seewhat()`. After receiving image feedback, select the corresponding line color based on actual recognition. If the color cannot be confirmed, explain that it cannot be confirmed and output `finishtask()`.
+
+
+            ## Target tracking
+
+
+            The fixed three-layer workflow is: the decision layer plans the tracking step, the execution layer first captures an image, the bounding-box layer returns a bbox from the image, and the execution layer reads the bbox and starts tracking.
+
+
+            1. If the task requires tracking, locking onto, or following a target but there is no current image feedback and no bbox from the bounding-box layer, output `seewhat()`.
+
+            2. If the bounding-box layer outputs `found=true` and a valid `bbox=[x1,y1,x2,y2]`, output `track_kcf(x1,y1,x2,y2)`.
+
+            3. When outputting `track_kcf(...)`, `response` must include the actual numeric coordinates returned by the bounding-box layer.
+
+            4. If the bounding-box layer outputs `found=false`, or if the bbox is missing, out of bounds, or not four integers, output `finishtask()` and explain that the target cannot be confirmed.
+
+            5. If image feedback is already available but no bounding-box-layer output has been received, output `finishtask()` and explain that no target-box coordinates were obtained.
+
+            6. If the user explicitly provides four valid coordinates, those coordinates may be used directly with `track_kcf(...)`.
+
+            7. The execution layer must not guess a bbox from the image. Do not output empty arguments, placeholders, example coordinates, or guessed coordinates.
+
+
+            ## Feedback progression
+
+
+            1. After receiving action-success feedback, execute only the next incomplete step.
+
+            2. After receiving action-failure feedback, do not continue with later steps that depend on the failed action. Explain the failure and end the task, or retry safely once.
+
+            3. If the user only asked to take a photo, after receiving image feedback confirm that the photo was taken and output `finishtask()`.
+
+            4. If the user asks to "nod if it is present, otherwise shake your head", the image-feedback turn must output `servo_nod()` or `servo_shake()`. After the gesture succeeds, output `finishtask()`.
+
+            5. `track_kcf()` is a continuous action. After it starts successfully, do not append another action; wait for a new user instruction to interrupt it.
+
+
+            ## Hardware limitations
+
+
+            - `ptz`: camera pan/tilt, photography, observation, line following, and tracking are available.
+
+            - `no_ptz`: photography, line following, and tracking are available, but no `servo*` action or `observe_surroundings()` may be called.
+
+            - `basic_car`: camera pan/tilt, photography, observation, line following, and tracking actions are unavailable.
+
+            - If ROS feedback says the hardware does not support the action, explain the limitation and output `finishtask()`.
+
+            - A two-wheel differential-drive base cannot move sideways. For a sideways-motion request, explain the limitation and output `finishtask()`.
+
+
+            ## Action function library
+
+
+            - `move_forward(speed, duration)`: move forward; speed in m/s and duration in seconds.
+
+            - `move_backward(speed, duration)`: move backward; speed in m/s and duration in seconds.
+
+            - `turn_left(angle, speed)`: turn left in place; angle in degrees and angular speed in rad/s.
+
+            - `turn_right(angle, speed)`: turn right in place; angle in degrees and angular speed in rad/s.
+
+            - `stop()`: stop immediately. When tracking, stopping cancels tracking and centers the camera.
+
+            - `navigation(target)`: navigate to a mapped destination or the runtime dynamic point `zero`.
+
+            - `get_current_pose()`: get the current position and record it as the dynamic point `zero`.
+
+            - `servo1_move(angle)`: horizontal servo, range -90 to 90.
+
+            - `servo2_move(angle)`: vertical servo, range -90 to 20.
+
+            - `servo_init()`: reset the camera to `(x=0, y=-45)`.
+
+            - `servo_shake()`: shake the head.
+
+            - `servo_nod()`: nod.
+
+            - `seewhat()`: capture the current view.
+
+            - `observe_surroundings()`: capture views directly ahead, directly right, and directly left.
+
+            - `follow_line(color)`: start following the specified line color; available colors are `red`, `green`, `blue`, and `yellow`, with `red` as the default.
+
+            - `track_kcf(x1,y1,x2,y2)`: call `/start_track` to start coordinate-based tracking; `/tracking_bbox` then controls the camera and vehicle.
+
+            - `finishtask()`: end the current task cycle.'
+        - edition_type: basic
+          id: 391a3edd-48b5-414f-a592-05b11204e3ae
+          role: user
+          text: 'Current input (user instruction or robot feedback): {{#sys.query#}}
+
+
+            Robot feedback flag: {{#1758885778433.robot_feedback#}}
+
+
+            Current decision-layer step: {{#conversation.decision_OUT#}}
+
+
+            Bounding-box-layer output: {{#conversation.bbox_OUT#}}
+
+
+            Map destination mapping: {{#conversation.map_mapping#}}
+
+
+            Output only a strict JSON object containing `response` and `action`.'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              action:
+                items:
+                  type: string
+                type: array
+              response:
+                type: string
+            required:
+            - action
+            - response
+            type: object
+        structured_output_enabled: true
+        title: Execution Layer AI
+        type: llm
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: true
+      height: 88
+      id: '17590277230150'
+      position:
+        x: 1648.2857142857142
+        y: 139.94285714285715
+      positionAbsolute:
+        x: 1648.2857142857142
+        y: 139.94285714285715
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - K0laLVhEkZpfXYBN55WCOD4gJUVN7bKSC+co2umBp6A5kOMtmhUUP3oW9amZovM5
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank
+            provider: langgenius/tongyi/tongyi
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1758885778433'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: Decision-Layer Example Library
+        type: knowledge-retrieval
+      height: 90
+      id: '1759125847005'
+      position:
+        x: 900.4007029846102
+        y: 319.25
+      positionAbsolute:
+        x: 900.4007029846102
+        y: 319.25
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 35012b73-ee22-4ab9-8713-9406fe27d1cd
+            value: 'True'
+            varType: string
+            variable_selector:
+            - '1758885778433'
+            - robot_feedback
+          - comparison_operator: not empty
+            id: 9b197e5d-0a1d-4fcf-9fb1-9bdf0aab52a7
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: or
+        selected: false
+        title: Conditional Branch
+        type: if-else
+      height: 174
+      id: '1759126020176'
+      position:
+        x: 342
+        y: 0
+      positionAbsolute:
+        x: 342
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1759022814134'
+          - text
+          variable_selector:
+          - conversation
+          - decision_OUT
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - bbox_OUT
+          write_mode: over-write
+        selected: false
+        title: Assign Decision
+        type: assigner
+        version: '2'
+      height: 110
+      id: '1759146276901'
+      position:
+        x: 1209.1428571428573
+        y: 366.05952380952374
+      positionAbsolute:
+        x: 1209.1428571428573
+        y: 366.05952380952374
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - decision_OUT
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - bbox_OUT
+          write_mode: over-write
+        selected: false
+        title: Reset Decision and Bounding Box
+        type: assigner
+        version: '2'
+      height: 110
+      id: '17658757231950'
+      position:
+        x: 871.7142857142858
+        y: 92.11904761904759
+      positionAbsolute:
+        x: 871.7142857142858
+        y: 92.11904761904759
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: b0f4c7a8-5c7d-4a94-a61b-7b9c2e700101
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: Image Feedback Check
+        type: if-else
+      height: 124
+      id: '1768891200000'
+      position:
+        x: 946.5714285714284
+        y: -186.39999999999998
+      positionAbsolute:
+        x: 946.5714285714284
+        y: -186.39999999999998
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 30
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: kimi-k2.5
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - id: b0f4c7a8-5c7d-4a94-a61b-7b9c2e700201
+          role: system
+          text: 'You are the target bounding-box layer of the MicroROS-V2 robot. You have exactly one responsibility: return bbox coordinates suitable for tracking based on the image and target description.
+
+
+            Do not control the robot, plan steps, call action functions, or explain the workflow.
+
+
+            ## Output format
+
+
+            Output only a strict JSON object:
+
+
+            ```json
+
+            {"found":true,"target":"target name","bbox":[x1,y1,x2,y2],"confidence":0.0,"reason":"brief explanation"}
+
+            ```
+
+
+            Field rules:
+
+
+            1. `found`: whether the target can be uniquely identified.
+
+            2. `target`: a brief name for the boxed target.
+
+            3. `bbox`: the target box `[x1,y1,x2,y2]`; output `[]` if the target cannot be found.
+
+            4. `confidence`: a confidence score from 0 to 1.
+
+            5. `reason`: one brief sentence with no line break.
+
+
+            ## Bounding-box rules
+
+
+            1. Always interpret image coordinates in a 640x480 space: the top-left corner is `(0,0)`, x increases to the right, and y increases downward.
+
+            2. If the target to box is empty, extract the most specific target from the user''s original instruction and the decision steps.
+
+            3. The bbox must be the tightest enclosing rectangle around the visible body of the target.
+
+            4. For a small target, box only the target itself. Do not include a hand, table, background, shadow, or adjacent object.
+
+            5. Add no padding by default. If tolerance is genuinely needed, expand by at most 2 to 3 pixels and never by more than 5 pixels on any side.
+
+            6. If the target is occluded, box only its visible portion.
+
+            7. If there are multiple targets of the same type, select the one that best matches the user''s description. If they still cannot be distinguished, set `found=false`.
+
+            8. If the edges are unclear, the target is too small to locate, the target is absent, or the result is uncertain, set `found=false` and `bbox=[]`.
+
+            9. Coordinates must be integers satisfying `0 <= x1 < x2 <= 640` and `0 <= y1 < y2 <= 480`.
+
+            10. Do not output Markdown, code blocks, extra fields, placeholders, or reasoning steps.'
+        - edition_type: basic
+          id: b0f4c7a8-5c7d-4a94-a61b-7b9c2e700202
+          role: user
+          text: 'User''s original instruction: {{#sys.query#}}
+
+
+            Current decision-layer step: {{#conversation.decision_OUT#}}
+
+
+            Extract the target to box from the user''s original instruction and the current decision-layer step, then return the target bbox based on the image for this turn.'
+        selected: false
+        structured_output_enabled: false
+        title: Bounding-Box Layer AI
+        type: llm
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: true
+      height: 88
+      id: '1768891200001'
+      position:
+        x: 1258.5714285714287
+        y: -6.659523809523847
+      positionAbsolute:
+        x: 1258.5714285714287
+        y: -6.659523809523847
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1768891200001'
+          - text
+          variable_selector:
+          - conversation
+          - bbox_OUT
+          write_mode: over-write
+        selected: false
+        title: Assign Bounding Box
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1768891200002'
+      position:
+        x: 1504.8571428571427
+        y: -191.4214285714286
+      positionAbsolute:
+        x: 1504.8571428571427
+        y: -191.4214285714286
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - bbox_OUT
+          write_mode: over-write
+        selected: false
+        title: Clear Bounding Box on Feedback
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1768891200003'
+      position:
+        x: 612.5714285714284
+        y: -207.60000000000005
+      positionAbsolute:
+        x: 612.5714285714284
+        y: -207.60000000000005
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -1697.8731982810823
+      y: 211.26880695636876
+      zoom: 1.0610015965572788
+  rag_pipeline_variables: []
